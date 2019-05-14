@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+
+<script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<meta name="theme-color" content="#222">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/header.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon.jpg?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/header.jpg?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="webpack配置,">
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="無畏" type="application/atom+xml">
+
+
+
+
+
+
+<meta name="description" content="前言距离上篇文章9102年webpack4搭建vue项目已经过了将近两个月了，一直没有时间写文章，公司项目比较多，这两个月一直在加班，最近大家一直在讨论996.icu，其实我想发表一点自己的看法，关于加班我的座右铭一直是：只要工资给到位，加班无所谓。尴尬的就是我们公司不给加班费，而且不让调休，哈哈哈，相信大多数公司都是如此，所以呢，所以呢，直到今天才能给大家分享文章，想看上篇文章的同学点这里[传送">
+<meta name="keywords" content="webpack配置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="webpack4构建vue项目（二）">
+<meta property="og:url" content="http://yoursite.com/webpack/index.html">
+<meta property="og:site_name" content="無畏">
+<meta property="og:description" content="前言距离上篇文章9102年webpack4搭建vue项目已经过了将近两个月了，一直没有时间写文章，公司项目比较多，这两个月一直在加班，最近大家一直在讨论996.icu，其实我想发表一点自己的看法，关于加班我的座右铭一直是：只要工资给到位，加班无所谓。尴尬的就是我们公司不给加班费，而且不让调休，哈哈哈，相信大多数公司都是如此，所以呢，所以呢，直到今天才能给大家分享文章，想看上篇文章的同学点这里[传送">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-05-14T03:10:49.723Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="webpack4构建vue项目（二）">
+<meta name="twitter:description" content="前言距离上篇文章9102年webpack4搭建vue项目已经过了将近两个月了，一直没有时间写文章，公司项目比较多，这两个月一直在加班，最近大家一直在讨论996.icu，其实我想发表一点自己的看法，关于加班我的座右铭一直是：只要工资给到位，加班无所谓。尴尬的就是我们公司不给加班费，而且不让调休，哈哈哈，相信大多数公司都是如此，所以呢，所以呢，直到今天才能给大家分享文章，想看上篇文章的同学点这里[传送">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/webpack/">
+
+
+
+
+
+  <title>webpack4构建vue项目（二） | 無畏</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">無畏</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-首页">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-我的">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            我的
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-标签">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-分类">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-归档">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/webpack/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="李梦博">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://user-gold-cdn.xitu.io/2019/1/21/1686e1efb99617e1?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="無畏">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">webpack4构建vue项目（二）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-01T10:32:58+08:00">
+                2019-03-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>距离上篇文章9102年webpack4搭建vue项目已经过了将近两个月了，一直没有时间写文章，公司项目比较多，这两个月一直在加班，最近大家一直在讨论996.icu，其实我想发表一点自己的看法，关于加班我的座右铭一直是：只要工资给到位，加班无所谓。尴尬的就是我们公司不给加班费，而且不让调休，哈哈哈，相信大多数公司都是如此，所以呢，所以呢，直到今天才能给大家分享文章，想看上篇文章的同学点这里<code>[传送门](https://www.imooc.com/article/279078)</code><br>好了废话不多说开始撸代码。</p>
+<h2 id="新建文件夹"><a href="#新建文件夹" class="headerlink" title="新建文件夹"></a>新建文件夹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir wepack-vue //文件名字可以随便</span><br></pre></td></tr></table></figure>
+<h2 id="新建package-json文件"><a href="#新建package-json文件" class="headerlink" title="新建package.json文件"></a>新建package.json文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init -y</span><br></pre></td></tr></table></figure>
+<h2 id="webpack配置"><a href="#webpack配置" class="headerlink" title="webpack配置"></a>webpack配置</h2><ul>
+<li>新建build文件夹<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir build</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>build文件夹新建webpack.base.conf.js，webpack.dev.conf.js，webpack.prod.conf.js<br>webpack.base.conf.js 存放公共配置<br>webpack.prod.conf.js 存放生产环境配置<br>webpack.dev.conf.js 存放开发环境配置</p>
+<ul>
+<li>创建src文件夹并创建main.js</li>
+<li>创建index.html</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;en&quot;&gt;</span><br><span class="line">&lt;head&gt;    </span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;    </span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;    </span><br><span class="line">    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;    </span><br><span class="line">    &lt;title&gt;webpack搭建vue项目&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div id=&quot;app&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载webpack webpack-dev-server webpack-cli</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack webpack-dev-server webpack-cli -D</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打开webpack.base.config.js，并配置webpack整体属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var path = require(&apos;path&apos;);</span><br><span class="line">var webpack = require(&apos;webpack&apos;);</span><br><span class="line">module.exports = &#123;</span><br><span class="line">    entry: &#123;</span><br><span class="line">        main: path.resolve(__dirname, &apos;../src/main.js&apos;)</span><br><span class="line">    &#125;,</span><br><span class="line">    output: &#123;</span><br><span class="line">        path: path.resolve(__dirname, &apos;../src&apos;),</span><br><span class="line">        filname: &apos;[name].[bash].js&apos;,</span><br><span class="line">    &#125;,</span><br><span class="line">    module: &#123;</span><br><span class="line">        rules: []</span><br><span class="line">    &#125;,</span><br><span class="line">    pligins: [</span><br><span class="line">                new webpack.HashedModuleIdsPlugin(), // 解决vender后面的hash每次都改变</span><br><span class="line">             ],</span><br><span class="line">    resolve: &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="配置loader"><a href="#配置loader" class="headerlink" title="配置loader"></a>配置loader</h2><ul>
+<li>下载babel-loader，babel-core，babel-preset-dev，rules并配置js</li>
+</ul>
+<p>babel-preset-env 帮助我们配置 babel。我们只需要告诉它我们要兼容的情况（目标运行环境），它就会自动把代码转换为兼容对应环境的代码。</p>
+<p>babel-core是作为babel的核心存在，babel的核心api都在这个模块里面</p>
+<p>tips: babel是7.X的话babel-core必须是6.X，否则不兼容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i babel-loader babel-core babel-preset-env@7 -D</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">rules:[</span><br><span class="line">    &#123;</span><br><span class="line">        test: /\.js$/,</span><br><span class="line">        use: [&apos;babel-loader&apos;],</span><br><span class="line">        exclude: /node_modules/</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>新建.babelrc文件，.babelrc是babel全局配置文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;preset&quot;: [</span><br><span class="line">                [&apos;env&apos;,&#123;</span><br><span class="line">                        &quot;targets&quot;:  &#123;// 指定转译到那个环境</span><br><span class="line">                            //浏览器环境                            </span><br><span class="line">                            &quot;browsers&quot;: [&quot;&gt; 1%&quot;, &quot;last 2 versions&quot;, &quot;not ie &lt;= 8&quot;],</span><br><span class="line">                        &#125;,</span><br><span class="line">                        //是否将ES6的模块化语法转译成其他类型</span><br><span class="line">                        &quot;modules&quot;: false</span><br><span class="line">                 &#125;]</span><br><span class="line">            ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载file-loader，rules并配置文件（图片和字体）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i file-loader -D</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rules:[</span><br><span class="line">    &#123;</span><br><span class="line">        test: /\.(jpg|png|svg|gif)$/,</span><br><span class="line">        use: [&apos;file-loader&apos;]</span><br><span class="line">    &#125;,</span><br><span class="line">  &#123;</span><br><span class="line">        test: &apos;/\.(woff|woff2|eot|ttf|otf)$/&apos;,</span><br><span class="line">        use: [&apos;file-loader&apos;]</span><br><span class="line">   &#125;,]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载css-loader，vue-style-loader，sass-loader， node-sass，并配置css，scss，sass</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i css-loader vue-style-loader sass-loader node-sass -D</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">rules:[</span><br><span class="line">    &#123;</span><br><span class="line">        test: /\.(sa|sc|c)ss$/,</span><br><span class="line">        use: [</span><br><span class="line">                &#123;loader: &apos;vue-style-loader&apos;&#125;,</span><br><span class="line">                &apos;css-loader&apos;,</span><br><span class="line">                &apos;sass-loader&apos;</span><br><span class="line">              ]</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>下载less，less-loader，并配置less</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i less-loader less -D</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">rules:[</span><br><span class="line">    &#123;</span><br><span class="line">        test: /\.less$/,</span><br><span class="line">        use: [</span><br><span class="line">                &#123;loader: &apos;vue-style-loader&apos;&#125;,</span><br><span class="line">                &apos;css-loader&apos;,</span><br><span class="line">                &apos;less-loader&apos;</span><br><span class="line">              ]</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br></pre></td></tr></table></figure>
+<h2 id="生成html文件"><a href="#生成html文件" class="headerlink" title="生成html文件"></a>生成html文件</h2><ul>
+<li>下载html-webpack-plugin，并配置npm i html-webpack-plugin -D</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 引入html-webpack-plugin</span><br><span class="line">var HtmlWebpackPlugin = require(&apos;html-webpack-plugin&apos;);</span><br><span class="line">plugins: [</span><br><span class="line">    new HtmlWebpackPlugin(&#123;</span><br><span class="line">        template: path.resolve(__diename, &apos;../index.html&apos;)</span><br><span class="line">    &#125;),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<h2 id="配置解析模块"><a href="#配置解析模块" class="headerlink" title="配置解析模块"></a>配置解析模块</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">    // 能够使用户在引入模块时不带扩展</span><br><span class="line">    extensions: [&apos;.js&apos;, &apos;.json&apos;, &apos;.vue&apos;, &apos;css&apos;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>base模块配置了一些东西但没有配置完，会在后边一点一点加上，接下来配置dev和prod</p>
+<h2 id="配置webpack-dev-conf"><a href="#配置webpack-dev-conf" class="headerlink" title="配置webpack.dev.conf"></a>配置webpack.dev.conf</h2><ul>
+<li>下载 webpack-merge</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i webpack-merge -D</span><br></pre></td></tr></table></figure>
+<p>webpack.dev.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var merge = require(&apos;webpack-merge&apos;);</span><br><span class="line">var baseConfig = require(&apos;./webpack.base.conf&apos;);</span><br><span class="line">var path = require(&apos;path&apos;);</span><br><span class="line">var webpack = reuire(&apos;webpack&apos;);</span><br><span class="line">module.exports = merge(baseConfig, &#123;</span><br><span class="line">    devtool: &apos;inline-source-map&apos;, // 压缩方式</span><br><span class="line">    mode: &apos;development&apos;</span><br><span class="line">    devServer: &#123;</span><br><span class="line">     hot: true, // 热更新</span><br><span class="line">     open: true, // 自动打开页面</span><br><span class="line">     contentBase: path.resolve(__dirname, &apos;../dist&apos;), // 告诉服务从哪提供内容</span><br><span class="line">    &#125;,</span><br><span class="line">    plugins: [</span><br><span class="line">        new.webpack.HotModuleReplacementPlugin(), //开启热更新</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="配置webpack-prod-conf"><a href="#配置webpack-prod-conf" class="headerlink" title="配置webpack.prod.conf"></a>配置webpack.prod.conf</h2><p>webpack.prod.conf.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var merge = require(&apos;webpack-merge&apos;);</span><br><span class="line">var baseConfig = require(&apos;./webpack.base.conf&apos;);</span><br><span class="line">var path = require(&apos;path&apos;);</span><br><span class="line">var webpack = reuire(&apos;webpack&apos;);</span><br><span class="line">module.exports = merge(baseConfig, &#123;</span><br><span class="line">    devtool: &apos;source-map&apos;, // 压缩方式</span><br><span class="line">    mode: &apos;production&apos;</span><br><span class="line">    plugins: [</span><br><span class="line">    ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="配置vue-loader"><a href="#配置vue-loader" class="headerlink" title="配置vue-loader"></a>配置vue-loader</h2><ul>
+<li>下载vue-loader，vue，vue-template-compiler, 并配置vue解析文件，配置webpack.base.cond.js</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vue vue-loader vue-template-compiler -D</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">var VueLoaderPlugin = require(&apos;vue-loader/lib/plugin&apos;);</span><br><span class="line">// 省略代码......</span><br><span class="line">rules:[</span><br><span class="line">    &#123;</span><br><span class="line">        test: /\.vue$/,</span><br><span class="line">        use: [&apos;vue-loader&apos;],</span><br><span class="line">        exclude: /node_modules/</span><br><span class="line">    &#125;,</span><br><span class="line">  ]</span><br><span class="line">// 省略代码.......</span><br><span class="line">// 省略代码....</span><br><span class="line">plugins: [</span><br><span class="line">    new VueLoaderPlugin(), // 它的职责是将你定义过的其它规则复制并应用到 .vue 文件里相应语言的块</span><br><span class="line">]</span><br><span class="line">// 省略代码...</span><br><span class="line">配置vue别名，确保webpack可以找到.vue文件</span><br><span class="line">// 省略代码...</span><br><span class="line">reslove: &#123;</span><br><span class="line">    alias: [</span><br><span class="line">        &apos;vue$&apos;: &apos;vue/dist/vue.esm.js&apos;, //配置别名 确保webpack可以找到.vue文件</span><br><span class="line">        &apos;@&apos;: path.resolve(__dirname, &apos;../src&apos;)</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>新建App.vue文件</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;&#123;&#123;str&#125;&#125;&lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;App&apos;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      str: &apos;hello&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">div &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在main.js中引入vue</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import VUe from &apos;vue&apos;</span><br><span class="line">import App from &apos;./App&apos;</span><br><span class="line"></span><br><span class="line">new Vue(&#123;</span><br><span class="line">    el: &quot;#app&quot;,</span><br><span class="line">    render: (h) =&gt; h(App)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="配置命令"><a href="#配置命令" class="headerlink" title="配置命令"></a>配置命令</h2><ul>
+<li>找到package.json文件，并配置开发和打包命令</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 省略代码。。。</span><br><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;dev&quot;: &quot;webpack-dev-server  --progress --config build/webpack.dev.conf.js&quot;,</span><br><span class="line">   &quot;build&quot;: &quot;webpack --config build/webpack.prod.conf.js&quot;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行项目</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<p>可以看到项目已经跑起来了</p>
+<h2 id="区分环境引入不同地址"><a href="#区分环境引入不同地址" class="headerlink" title="区分环境引入不同地址"></a>区分环境引入不同地址</h2><ul>
+<li>新建config文件夹并新建dev.ev.js和prod.env.js</li>
+</ul>
+<p>dev.env.js 开发环境配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    NODE_ENV: &apos;&quot;development&quot;&apos;,</span><br><span class="line">    BASE_API: &apos;&quot;http://1456&quot;&apos;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>prod.env.js 生产环境配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&apos;use strict&apos;</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">    NODE_ENV: &apos;&quot;production&quot;&apos;,    BASE_API: &apos;&quot;http://123.com&quot;&apos;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="优化webpack配置"><a href="#优化webpack配置" class="headerlink" title="优化webpack配置"></a>优化webpack配置</h2><ul>
+<li>解决更改文件打包时dist文件没有清除，再次打包。</li>
+</ul>
+<p>下载clean-webpack-plugin，并配置webpack.prod.conf.js文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">npm i clean-webpack-plugin -D</span><br><span class="line">// 引入clean-webpack-plugin</span><br><span class="line">var CleanWebpackPlugin = require(&apos;clean-webpack-plugin&apos;);</span><br><span class="line">// 省略代码。。。。</span><br><span class="line">plugins: [</span><br><span class="line">    new CleanWebPackPlugin();</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>根据不同环境提取css</li>
+</ul>
+<p>下载mini-css-extract-plugin，并配置webpack.prod.conf.js文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i mini-css-extract-plugin -D</span><br></pre></td></tr></table></figure>
+<p>更改webpack.prod.conf.js中使用vue-style-loader的代码，更改为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">module: &#123;</span><br><span class="line">       rules: [</span><br><span class="line">           &#123;</span><br><span class="line">               test: /\.(c|sc|sa)ss$/,</span><br><span class="line">               use: [</span><br><span class="line">                 &#123;</span><br><span class="line">                   loader: MiniCssExtractPlugin.loader,</span><br><span class="line">                 &#125;,</span><br><span class="line">                 &apos;css-loader&apos;,</span><br><span class="line">                 &apos;sass-loader&apos;</span><br><span class="line">               ]</span><br><span class="line">           &#125;,</span><br><span class="line">           &#123;</span><br><span class="line">           test: /\.less$/,</span><br><span class="line">           use: [</span><br><span class="line">               &#123;</span><br><span class="line">               loader: MiniCssExtractPlugin.loader,</span><br><span class="line">               &#125;,</span><br><span class="line">               &apos;css-loader&apos;,</span><br><span class="line">               &apos;less-loader&apos;</span><br><span class="line">               ]</span><br><span class="line">           &#125;</span><br><span class="line">       ]</span><br><span class="line">   &#125;,</span><br></pre></td></tr></table></figure>
+<p>在webpack.prod.conf.js的plugin中配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">new MiniCssExtractPlugin(&#123;</span><br><span class="line">    filename: &apos;[name].[hash].js&apos;</span><br><span class="line">&#125;)</span><br><span class="line">webpack.base.conf.js中删除使用vue-style-loader的代码，并在webpack.dev.conf.js中定义</span><br><span class="line"></span><br><span class="line">  module: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.(c|sc|sa)ss$/,</span><br><span class="line">        use: [</span><br><span class="line">          &#123;</span><br><span class="line">            loader: &apos;vue-style-loader&apos;,</span><br><span class="line">          &#125;,</span><br><span class="line">          &apos;css-loader&apos;,</span><br><span class="line">          &apos;sass-loader&apos;</span><br><span class="line">        ]</span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">        test: /\.less$/,</span><br><span class="line">        use: [</span><br><span class="line">          &#123;</span><br><span class="line">            loader: &apos;vue-style-loader&apos;,</span><br><span class="line">          &#125;,</span><br><span class="line">          &apos;css-loader&apos;,</span><br><span class="line">          &apos;less-loader&apos;</span><br><span class="line">         ]</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;,</span><br></pre></td></tr></table></figure>
+<p>这个配置vue-loader中有提到<a href="https://vue-loader.vuejs.org/zh/guide/extract-css.html#webpack-4" target="_blank" rel="noopener">配置css单独打包</a></p>
+<ul>
+<li>第三方库单独打包</li>
+</ul>
+<p>把依赖的第三方库抽取出来单独打包，加快打包进度</p>
+<p>下载autodll-webpack-plugin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i autodll-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在webpack.base.conf.js中配置</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var AutodllWebpackpackPlugin = require(&apos;autodll-webpack-plugin&apos;);</span><br><span class="line">plugins: [</span><br><span class="line">    new AutodllWebpackpackPlugin (&#123;</span><br><span class="line">        inject: true,</span><br><span class="line">        debugger: true,</span><br><span class="line">        filename: &apos;[name].js&apos;,</span><br><span class="line">        path: &apos;./dll&apos;,</span><br><span class="line">        entry: &#123;</span><br><span class="line">            vendor: [&apos;vue&apos;]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>tips: inject 为 true，插件会自动把打包出来的第三方库文件插入到 HTML。filename 是打包后文件的名称。path 是打包后的路径。entry 是入口，vendor 是你指定的名称，数组内容就是要打包的第三方库的名称，不要写全路径，Webpack 会自动去 node_modules 中找到的。</p>
+<ul>
+<li>提取公共代码</li>
+</ul>
+<p>在 webpack.base.conf.js的 plugins 属性中添加如下插件对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new webpack.optimize.SplitChunksPlugin()</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打包时压缩js和css</li>
+</ul>
+<p>下载optimize-css-assets-webpack-plugin和uglifyjs-webpack-plugin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i uglifyjs-webpack-plugin uglifyjs-webpack-plugin -D</span><br></pre></td></tr></table></figure>
+<p>在webpack.prod.conf.js中分别引入optimize-css-assets-webpack-plugin和uglifyjs-webpack-plugin并增加optimization</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">var OptimizeCSSAssetsPlugin = require(&quot;optimize-css-assets-webpack-plugin&quot;);</span><br><span class="line">var UglifyJsPlugin = require(&quot;uglifyjs-webpack-plugin&quot;);</span><br><span class="line">// ...省略号 </span><br><span class="line">    optimization: &#123;</span><br><span class="line">                minimizer: [</span><br><span class="line">          // 压缩JS</span><br><span class="line">          new UglifyJsPlugin(&#123;</span><br><span class="line">            uglifyOptions: &#123;</span><br><span class="line">              compress: &#123;</span><br><span class="line">                warnings: false, // 去除警告</span><br><span class="line">                drop_debugger: true, // 去除debugger</span><br><span class="line">                drop_console: true // 去除console.log</span><br><span class="line">              &#125;,</span><br><span class="line">            &#125;,</span><br><span class="line">            cache: true, // 开启缓存</span><br><span class="line">            parallel: true, // 平行压缩</span><br><span class="line">            sourceMap: false // set to true if you want JS source maps</span><br><span class="line">          &#125;),</span><br><span class="line">          // 压缩css</span><br><span class="line">          new OptimizeCSSAssetsPlugin(&#123;&#125;)</span><br><span class="line">        ]</span><br><span class="line">    &#125;,</span><br></pre></td></tr></table></figure>
+<ul>
+<li>css自动加前缀</li>
+</ul>
+<p>下载postcss-loader 和autoprefixer</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i postcss-loader autoprefixer -D</span><br></pre></td></tr></table></figure>
+<p>分别在webpack.dev.conf.js和webpack.prod.conf.js的use中添加postcss-loader</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">use: [</span><br><span class="line">    &apos;postcss-loader&apos;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+<p>在项目下增加postcss.config.js</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">// 配置cssz加前缀</span><br><span class="line">module.exports = &#123;</span><br><span class="line">  plugins: [</span><br><span class="line">    require(&apos;autoprefixer&apos;)</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上配置的项目就可以跑起来了，谢谢大家，如有错误，敬请指出，一起在码农的道路上越走越远</p>
+<p>感恩骗点star项目地址<a href="https://github.com/mr-mengbo/webpack-vue-admin" target="_blank" rel="noopener">项目地址</a></p>
+<p>占位<br>下一篇会介绍vue搭建后台项目</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack配置/" rel="tag"><img src="https://img.icons8.com/windows/32/000000/tags.png" style="width: 16px;display: inline-block;vertical-align: middle;"> webpack配置</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/wx/" rel="next" title="微信小程序转发好友">
+                <i class="fa fa-chevron-left"></i> 微信小程序转发好友
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://user-gold-cdn.xitu.io/2019/1/21/1686e1efb99617e1?imageView2/1/w/180/h/180/q/85/format/webp/interlace/1" alt="李梦博">
+            
+              <p class="site-author-name" itemprop="name">李梦博</p>
+              <p class="site-description motion-element" itemprop="description">编程不是为了钱，只因纯粹的乐趣。</p>
+          </div>
+
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" style="height=86;" src="//music.163.com/outchain/player?type=2&id=34586144&auto=1&height=66"></iframe>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/mr-mengbo" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://juejin.im/user/59ffddd3f265da431d3c119d" target="_blank" title="掘金">
+                      
+                        <i class="fa fa-fw fa-globe"></i>掘金</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建文件夹"><span class="nav-number">2.</span> <span class="nav-text">新建文件夹</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建package-json文件"><span class="nav-number">3.</span> <span class="nav-text">新建package.json文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webpack配置"><span class="nav-number">4.</span> <span class="nav-text">webpack配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置loader"><span class="nav-number">5.</span> <span class="nav-text">配置loader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成html文件"><span class="nav-number">6.</span> <span class="nav-text">生成html文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置解析模块"><span class="nav-number">7.</span> <span class="nav-text">配置解析模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置webpack-dev-conf"><span class="nav-number">8.</span> <span class="nav-text">配置webpack.dev.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置webpack-prod-conf"><span class="nav-number">9.</span> <span class="nav-text">配置webpack.prod.conf</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置vue-loader"><span class="nav-number">10.</span> <span class="nav-text">配置vue-loader</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置命令"><span class="nav-number">11.</span> <span class="nav-text">配置命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#区分环境引入不同地址"><span class="nav-number">12.</span> <span class="nav-text">区分环境引入不同地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化webpack配置"><span class="nav-number">13.</span> <span class="nav-text">优化webpack配置</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李梦博</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" rel="external nofollow" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" rel="external nofollow" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+<div>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+</body>
+</html>
