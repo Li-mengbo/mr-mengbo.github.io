@@ -2921,7 +2921,7 @@
                           e._.extend(s.prototype, r), i && e._.extend(s, i), s.prototype.constructor =
                           s, s.__super__ = n.prototype, s
                   };
-              e.serverURL = "61kljc1d.api.lncld.net", "undefined" != typeof n && n.versions &&
+              e.serverURL = "https://61kljc1d.api.lncld.net", "undefined" != typeof n && n.versions &&
                   n.versions.node && (e._isNode = !0), e.initialize = function (t, n, r) {
                       if (r) throw new Error(
                           "AV.initialize() was passed a Master Key, which is only allowed from within Node.js."
