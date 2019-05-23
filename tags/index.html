@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next mist use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="zh-Hans">
 
 <script type="text/javascript" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
 
@@ -116,7 +116,7 @@
   var NexT = window.NexT || {};
   var CONFIG = {
     root: '/',
-    scheme: 'Mist',
+    scheme: 'Muse',
     version: '5.1.4',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":true},
     fancybox: true,
@@ -167,7 +167,7 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-wrapper">
+      <div class="header-inner" style="padding: 25px 0"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
@@ -481,8 +481,8 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
-  <span class="with-love">
-    <i class="fa fa-user"></i>
+  <span class="with-love" id="heart">
+    <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">李梦博</span>
 
@@ -492,11 +492,11 @@
   <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   <div>
     <span id="busuanzi_container_site_pv" style="display:none">
-        历经 <span id="busuanzi_value_site_pv"></span> 次回眸才与你相遇
+        历经 <span id="busuanzi_value_site_pv" style="color:#1890ff"></span> 次回眸才与你相遇
         <span class="post-meta-divider">|</span>
     </span>
     <span id="busuanzi_container_site_uv" style="display:none">
-        我的第<span id="busuanzi_value_site_uv"></span>位朋友
+        我的第<span id="busuanzi_value_site_uv" style="color:#1890ff"></span>位朋友
     </span>
   </div>
   <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
@@ -1140,8 +1140,8 @@
 
    
 
-  <script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/moment-precise-range-plugin@1.3.0/moment-precise-range.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/moment@2.22.2/moment.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/moment-precise-range-plugin@1.3.0/moment-precise-range.min.js"></script>
   <script>
     function timer() {
       var ages = moment.preciseDiff(moment(),moment(20170501,"YYYYMMDD"));
@@ -1194,6 +1194,7 @@
             movementLeft: false,
             movementRight: false,
             debug: false,
+            bodyColor: 'linear-gradient(90deg,#f79533 0,#f37055 15%,#ef4e7b 30%,#a166ab 44%,#5073b8 58%,#1098ad 72%,#07b39b 86%,#6dba82 100%)'
           });
         
 
@@ -1217,6 +1218,15 @@
 
 
   <script async src="//code.tidio.co/nn5ibli7apjxjny7wjy80rbi3fccv5m9.js"></script>
+
+
+
+  <script src="//script-1256884783.file.myqcloud.com/activate-power-mode.min.js"></script>
+  <script>
+    POWERMODE.colorful = true;
+    POWERMODE.shake = false;
+    document.body.addEventListener('input', POWERMODE);
+  </script>
 
 
   <!-- 页面点击小红心 -->
